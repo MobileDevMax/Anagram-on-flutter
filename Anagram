@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(AnagramApp());
+}
+
+class AnagramApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Anagram',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: AnagramHomePage(),
+    );
+  }
+}
+
+class AnagramHomePage extends StatefulWidget {
+  @override
+  _AnagramHomePageState createState() => _AnagramHomePageState();
+}
+
+class _AnagramHomePageState extends State<AnagramHomePage> {
+  final TextEditingController _controller = TextEditingController();
+  String _result = '';
+
+  void _generateAnagram() {
+    setState(() {
+      String input = _controller.text;
+      _result = input.split('').reversed.join('');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Anagram'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                labelText: 'Enter the word',
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _generateAnagram,
+              child: Text('Input'),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Anagram: $_result',
+              style: TextStyle(fontSize: 24),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
